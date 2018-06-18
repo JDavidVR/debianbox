@@ -41,3 +41,13 @@ sudo  service apache2 restart;
 sudo bash -c "cat >> /etc/hosts" <<_EOF_
 127.0.0.1	$domain
 _EOF_
+
+# Get ip
+ip4=$(/sbin/ip -o -4 addr list eth1 | awk '{print $4}' | cut -d/ -f1)
+
+# Display configuration message
+cat <<_EOF_
+	# Add this line to your machine hosts
+	$ip4	$domain
+_EOF_
+
