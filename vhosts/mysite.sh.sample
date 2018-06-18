@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# Auto install using composer: Note keys needs to be added before
+# m2version="2.2.4";
+# composer create-project --repository-url=https://repo.magento.com/ magento/project-enterprise-edition=$m2version m224
+
+# Your projects directory name inside ../projects/ example ../projects/m224
+site='mysite';
+
+#################### EDIT ONLY IF YOU UNDERSTAND WHAT YOU ARE DOING! ####################
+# Site domain
+domain="$site.debibox";
+
+# Virtual Host file name
+vhostfile="$site.conf"
+
+# Add virtual host
+sudo bash -c "cat > /etc/apache2/sites-available/$vhostfile" <<_EOF_
+<VirtualHost *:80>
+    ServerName $domain
+    ServerAlias www.$domain;
+
+    DocumentRoot /var/www/projects/$site
+    
+    <Directory "/var/www/projects/$site">
+        AllowOverride All
+    </Directory>
+
+    ErrorLog /var/log/apache2/$site-error.log
+    CustomLog /var/log/apache2/$site-access.log combined
+</VirtualHost>
+_EOF_
+
+# Enable site
+sudo a2ensite $vhostfile;
+
+# Restart apache
+sudo  service apache2 restart;
+
+# Add domain to hosts
+sudo bash -c "cat >> /etc/hosts" <<_EOF_
+127.0.0.1	$domain
+_EOF_

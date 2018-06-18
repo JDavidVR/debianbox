@@ -1,0 +1,34 @@
+Vagrant.configure("2") do |config|
+  # Debian 9
+  config.vm.box = "debian/stretch64"
+
+  # Set IP: Set your custom ip
+  config.vm.network "private_network", ip: "192.168.33.15"
+
+  # Synced directory
+  # vhost scripts
+  config.vm.synced_folder "./vhosts", "/home/vagrant/vhosts"
+  
+  # Projects: Uncomment the one that works for you <---<<
+  # config.vm.synced_folder "./projects", "/var/www/projects"
+  # config.vm.synced_folder "./projects", "/var/www/projects", type: "nfs"
+  
+  config.vm.provider "virtualbox" do |vb|
+    # Set name
+    vb.name = "debianbox"
+
+    # Set vBox GUI
+    vb.gui = false
+  
+    # Set vBox RAM
+    vb.memory = "768"
+
+    # Set vBox CPU cores: Uncomment to set own config <---<<
+    # vb.cpus = 4
+  end
+  
+  # First RUN script: Uncomment script you want <---<<
+  # config.vm.provision "shell", path: "m2server.sh"
+  # config.vm.provision "shell", path: "m1server.sh"
+  
+end

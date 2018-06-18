@@ -1,0 +1,17 @@
+# IGNORE ROOT FILES
+# /*
+*
+!*/
+
+# EXCEPT THIS FILES FROM ROOT
+!/.gitignore
+!/README.md
+!/Vagrantfile.sample
+!/m2server.sh
+!/m1server.sh
+
+# EXCEPT THIS SUBDIRECTORIES
+/vhosts/*
+!/vhosts/mysite.sh.sample
+/projects/*
+!/projects/.keepdir
