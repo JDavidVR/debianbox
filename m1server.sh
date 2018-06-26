@@ -17,13 +17,13 @@ sudo add-apt-repository 'deb [arch=amd64,i386,ppc64el] http://mirror.ufscar.br/m
 sudo apt update;
 sudo apt install mariadb-server -y;
 
-# Install php 7.1
-echo -e "\e[96m Install PHP 7.1 \e[39m"
+# Install php 5.6
+echo -e "\e[96m Install PHP 5.6 \e[39m"
 sudo apt install apt-transport-https ca-certificates -y;
 sudo wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg;
 echo "deb https://packages.sury.org/php/ stretch main" | sudo tee /etc/apt/sources.list.d/php.list;
 sudo apt update;
-sudo apt install php7.1-fpm php7.1-cli php7.1-bcmath php7.1-curl php7.1-gd php7.1-intl php7.1-mbstring php7.1-mcrypt php7.1-mysql php7.1-xml php7.1-soap php7.1-xsl php7.1-zip php7.1-json php7.1-xdebug -y;
+sudo apt install php5.6-fpm php5.6-cli php5.6-bcmath php5.6-curl php5.6-gd php5.6-intl php5.6-mbstring php5.6-mcrypt php5.6-mysql php5.6-xml php5.6-soap php5.6-xsl php5.6-zip php5.6-json php5.6-xdebug -y;
 sudo phpenmod xdebug;
 
 # Install apache
@@ -31,15 +31,15 @@ echo -e "\e[96m Install Apache2 \e[39m"
 sudo apt install apache2 -y;
 sudo apt install libapache2-mod-fcgid -y;
 sudo a2enmod rewrite proxy_fcgi;
-sudo a2enconf php7.1-fpm;
+sudo a2enconf php5.6-fpm;
 sudo service apache2 restart;
 
 # Change apache and php-fpm users and groups ***
 echo -e "\e[96m Change Apache and Php-Fpm user owner \e[39m"
 sudo sed -i.BAK "s;www-data;vagrant;" /etc/apache2/envvars;
-sudo sed -i.BAK "s;www-data;vagrant;" /etc/php/7.1/fpm/pool.d/www.conf;
+sudo sed -i.BAK "s;www-data;vagrant;" /etc/php/5.6/fpm/pool.d/www.conf;
 sudo service apache2 restart;
-sudo service php7.1-fpm restart;
+sudo service php5.6-fpm restart;
 
 # Change /var/www owner
 sudo chown vagrant:vagrant /var/www/ /var/www/html;
@@ -53,5 +53,5 @@ sudo chmod +x /usr/local/bin/composer;
 
 # Install Magerun2
 echo -e "\e[96m Install Magerun2 \e[39m"
-sudo wget https://files.magerun.net/n98-magerun2.phar -O /usr/local/bin/mr2;
-sudo chmod +x /usr/local/bin/mr2;
+sudo wget https://files.magerun.net/n98-magerun.phar -O /usr/local/bin/mr1;
+sudo chmod +x /usr/local/bin/mr1;
